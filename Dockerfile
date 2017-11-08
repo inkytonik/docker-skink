@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     git \
     mercurial \
     python3-pip \
+    software-properties-common \
     subversion \
     wget
 
@@ -36,6 +37,12 @@ RUN echo 'deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-5.0 main' >> /et
 # Install z3
 
 RUN apt-get install -y z3
+
+# Install Yices
+
+RUN add-apt-repository -y ppa:sri-csl/formal-methods && \
+    apt-get update && apt-get install -y \
+        yices2
 
 # Install benchexec, including sources to get mergeBenchmarkSets.py
 # For cutting edge version:
