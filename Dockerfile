@@ -52,12 +52,19 @@ RUN pip3 install benchexec && \
     cd /usr/src && \
     git clone --depth 1 git://github.com/sosy-lab/benchexec.git
 
-# Install sv-benchmarks
+# Install SV-COMP configuration
+# Link to / so /sv-comp paths in bench script work
+
+RUN cd /usr/src && \
+    git clone --depth 1 https://github.com/sosy-lab/sv-comp.git && \
+    ln -s /usr/src/sv-comp /sv-comp
+
+# Install sv-benchmarks for SV-COMP18
 # Link to / so /sv-benchmarks paths in SV-COMP work
 
 RUN cd /usr/src && \
-    git clone --depth 1 https://github.com/dbeyer/sv-benchmarks.git && \
-    ln -s /usr/src/sv-benchmarks/ /sv-benchmarks
+    wget -q -O - https://github.com/sosy-lab/sv-benchmarks/archive/svcomp18.tar.gz | tar xvzf - && \
+    ln -s /usr/src/sv-benchmarks-svcomp18 /sv-benchmarks
 
 # Install CPAchecker
 
