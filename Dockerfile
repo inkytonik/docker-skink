@@ -101,6 +101,7 @@ RUN cd /usr/src && \
 # to there.
 
 RUN mkdir /skink && \
-    ln -s /skink/Test.set /sv-benchmarks/c/Test.set
+    ln -s /skink/Test.set /usr/src/sv-benchmarks/c/Test.set
+    ln -s /skink/Test.set /usr/src/sv-benchmarks-svcomp18/c/Test.set
 
 WORKDIR /skink
