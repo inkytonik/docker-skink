@@ -6,10 +6,12 @@ RUN apt-get update && apt-get install -y \
     apt-transport-https \
     git \
     mercurial \
+    python-pip \
     python3-pip \
     software-properties-common \
     subversion \
-    wget
+    wget \
+    unzip
 
 # Install java
 
@@ -76,6 +78,19 @@ RUN cd /usr/local/bin && \
     wget https://cpachecker.sosy-lab.org/CPAchecker-1.6.12-svcomp17-unix.tar.bz2 && \
     tar xvjf CPAchecker-1.6.12-svcomp17-unix.tar.bz2 && \
     ln -s CPAchecker-1.6.12-svcomp17-unix CPAchecker
+
+# Install fshell-witness2test
+
+RUN cd /usr/src && \
+    apt-get install -y libc6-dev-i386 && \
+    git clone https://github.com/tautschnig/fshell-w2t.git && \
+    pip install pycparser && \
+    cd fshell-w2t/witness2test && \
+    wget https://codeload.github.com/eliben/pycparser/zip/master -O pycparser-master.zip && \
+    unzip pycparser-master.zip && \
+    cd /usr/src && \
+    cp -rf fshell-w2t/witness2test/* /usr/local/bin && \
+    chmod +x /usr/local/bin/process_witness.py /usr/local/bin/test-gen.sh /usr/local/bin/TestEnvGenerator.pl
 
 # Setup skink-specific stuff
 # When running locally for benchexec, Skink working dir will be mounted
