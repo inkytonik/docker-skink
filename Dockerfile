@@ -65,11 +65,14 @@ RUN cd /usr/src && \
     git clone --depth 1 https://github.com/sosy-lab/sv-comp.git && \
     ln -s /usr/src/sv-comp /sv-comp
 
-# Install sv-benchmarks for SV-COMP18
+# Install sv-benchmarks for SV-COMP18 and cutting-edge version
 # Link to / so /sv-benchmarks paths in SV-COMP work
+# SV-COMP18 ones are used by default but relink /sv-benchmarks to get others:
+#   ln -s /usr/src/sv-benchmarks /sv-benchmarks
 
 RUN cd /usr/src && \
     wget -q -O - https://github.com/sosy-lab/sv-benchmarks/archive/svcomp18.tar.gz | tar xvzf - && \
+    git clone --depth 1 https://github.com/sosy-lab/sv-benchmarks.git && \
     ln -s /usr/src/sv-benchmarks-svcomp18 /sv-benchmarks
 
 # Install CPAchecker
