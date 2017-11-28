@@ -88,11 +88,10 @@ RUN cd /usr/src && \
     apt-get install -y libc6-dev-i386 && \
     git clone https://github.com/tautschnig/fshell-w2t.git && \
     pip install pycparser && \
-    cd fshell-w2t/witness2test && \
+    cd fshell-w2t && \
     wget https://codeload.github.com/eliben/pycparser/zip/master -O pycparser-master.zip && \
     unzip pycparser-master.zip && \
-    cd /usr/src && \
-    cp -rf fshell-w2t/witness2test/* /usr/local/bin && \
+    cp -rf /usr/src/fshell-w2t/* /usr/local/bin && \
     chmod +x /usr/local/bin/process_witness.py /usr/local/bin/test-gen.sh /usr/local/bin/TestEnvGenerator.pl
 
 # Setup skink-specific stuff
