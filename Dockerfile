@@ -79,9 +79,9 @@ RUN cd /usr/src && \
 # Install CPAchecker
 
 RUN cd /usr/local/bin && \
-    wget https://cpachecker.sosy-lab.org/CPAchecker-1.6.12-svcomp17-unix.tar.bz2 && \
-    tar xvjf CPAchecker-1.6.12-svcomp17-unix.tar.bz2 && \
-    ln -s CPAchecker-1.6.12-svcomp17-unix CPAchecker
+    wget https://cpachecker.sosy-lab.org/CPAchecker-1.7-unix.tar.bz2 && \
+    tar xvjf CPAchecker-1.7-unix.tar.bz2 && \
+    ln -s CPAchecker-1.7-unix CPAchecker
 
 # Install fshell-witness2test
 
