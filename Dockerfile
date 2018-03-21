@@ -28,14 +28,11 @@ RUN echo 'deb https://dl.bintray.com/sbt/debian /' >> /etc/apt/sources.list && \
 
 # Install clang
 
-RUN echo 'deb http://apt.llvm.org/xenial/ llvm-toolchain-xenial-5.0 main' >> /etc/apt/sources.list && \
-    echo 'deb-src http://apt.llvm.org/xenial/ llvm-toolchain-xenial-5.0 main' >> /etc/apt/sources.list && \
-    wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
-    apt-get update && apt-get install -y \
-        llvm-5.0-dev \
-        clang-5.0 && \
-    ln -s /usr/bin/clang-5.0 /usr/bin/clang
-
+RUN cd /usr/src && \
+    wget -q http://releases.llvm.org/5.0.1/clang+llvm-5.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz && \
+    tar xvJf clang+llvm-5.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz && \
+    ln -s /usr/src/clang+llvm-5.0.1-x86_64-linux-gnu-ubuntu-16.04/bin/clang /usr/local/bin/clang
+    
 # Install z3
 
 RUN apt-get install -y z3
