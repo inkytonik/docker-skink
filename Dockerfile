@@ -71,7 +71,8 @@ RUN cd /usr/src && \
 #   ln -s /usr/src/sv-benchmarks /sv-benchmarks
 
 RUN cd /usr/src && \
-    wget -q -O - https://github.com/sosy-lab/sv-benchmarks/archive/svcomp18.tar.gz | tar xvzf - && \
+    wget -q https://github.com/sosy-lab/sv-benchmarks/archive/svcomp18.tar.gz && \
+    tar xvzf svcomp18.tar.gz && \
     git clone --depth 1 https://github.com/sosy-lab/sv-benchmarks.git && \
     ln -s /usr/src/sv-benchmarks-svcomp18 /sv-benchmarks
 
