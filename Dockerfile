@@ -48,15 +48,15 @@ RUN add-apt-repository -y ppa:sri-csl/formal-methods && \
 
 # Install benchexec, including sources to get mergeBenchmarkSets.py
 # For released version:
-#RUN pip3 install benchexec && \
-#    cd /usr/src && \
-#    git clone --depth 1 git://github.com/sosy-lab/benchexec.git
-
-# For cutting-edge version:
-RUN apt-get install -y python3-lxml && \
-    pip3 install git+https://github.com/sosy-lab/benchexec.git && \
+RUN pip3 install benchexec && \
     cd /usr/src && \
     git clone --depth 1 git://github.com/sosy-lab/benchexec.git
+
+# For cutting-edge version:
+#RUN apt-get install -y python3-lxml && \
+#    pip3 install git+https://github.com/sosy-lab/benchexec.git && \
+#    cd /usr/src && \
+#    git clone --depth 1 git://github.com/sosy-lab/benchexec.git
 
 # Install SV-COMP configuration
 # Link to / so /sv-comp paths in bench script work
