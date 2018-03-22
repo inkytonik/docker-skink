@@ -46,6 +46,13 @@ RUN add-apt-repository -y ppa:sri-csl/formal-methods && \
     apt-get update && apt-get install -y \
         yices2
 
+# Install Mathsat
+
+RUN cd /usr/src && \
+    wget -q 'http://mathsat.fbk.eu/download.php?file=mathsat-5.5.1-linux-x86_64.tar.gz' -O mathsat-5.5.1-linux-x86_64.tar.gz && \
+    tar zxvf mathsat-5.5.1-linux-x86_64.tar.gz && \
+    mv mathsat-5.5.1-linux-x86_64/bin/mathsat /usr/local/bin/mathsat
+
 # Install benchexec, including sources to get mergeBenchmarkSets.py
 # For released version:
 RUN pip3 install benchexec && \
