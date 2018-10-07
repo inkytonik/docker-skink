@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
    openjdk-8-jdk
 
 # Install sbt
-# http://www.scala-sbt.org/0.13/docs/Installing-sbt-on-Linux.html
+# http://www.scala-sbt.org/1.x/docs/Installing-sbt-on-Linux.html
 
 RUN echo 'deb https://dl.bintray.com/sbt/debian /' >> /etc/apt/sources.list && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823 && \
@@ -29,10 +29,10 @@ RUN echo 'deb https://dl.bintray.com/sbt/debian /' >> /etc/apt/sources.list && \
 # Install clang
 
 RUN cd /usr/src && \
-    wget -q http://releases.llvm.org/5.0.1/clang+llvm-5.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz && \
-    tar xvJf clang+llvm-5.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz && \
-    ln -s /usr/src/clang+llvm-5.0.1-x86_64-linux-gnu-ubuntu-16.04/bin/clang /usr/local/bin/clang
-    
+    wget -q http://releases.llvm.org/7.0.0/clang+llvm-7.0.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz && \
+    tar xvJf clang+llvm-7.0.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz && \
+    ln -s /usr/src/clang+llvm-7.0.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang /usr/local/bin/clang
+
 # Install z3
 
 RUN cd /usr/src && \
@@ -49,9 +49,9 @@ RUN add-apt-repository -y ppa:sri-csl/formal-methods && \
 # Install Mathsat
 
 RUN cd /usr/src && \
-    wget -q 'http://mathsat.fbk.eu/download.php?file=mathsat-5.5.1-linux-x86_64.tar.gz' -O mathsat-5.5.1-linux-x86_64.tar.gz && \
-    tar zxvf mathsat-5.5.1-linux-x86_64.tar.gz && \
-    mv mathsat-5.5.1-linux-x86_64/bin/mathsat /usr/local/bin/mathsat
+    wget -q 'http://mathsat.fbk.eu/download.php?file=mathsat-5.5.2-linux-x86_64.tar.gz' -O mathsat-5.5.2-linux-x86_64.tar.gz && \
+    tar zxvf mathsat-5.5.2-linux-x86_64.tar.gz && \
+    mv mathsat-5.5.2-linux-x86_64/bin/mathsat /usr/local/bin/mathsat
 
 # Install benchexec, including sources to get mergeBenchmarkSets.py
 # For released version:
