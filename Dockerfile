@@ -1,6 +1,6 @@
 # Dockerfile for docker-skink
 
-FROM ubuntu:xenial
+FROM ubuntu:bionic
 
 RUN apt-get update && apt-get install -y \
     apt-transport-https \
@@ -36,9 +36,9 @@ RUN cd /usr/src && \
 # Install z3
 
 RUN cd /usr/src && \
-    wget -q https://github.com/Z3Prover/z3/releases/download/z3-4.5.0/z3-4.5.0-x64-ubuntu-14.04.zip && \
-    unzip z3-4.5.0-x64-ubuntu-14.04.zip && \
-    mv z3-4.5.0-x64-ubuntu-14.04/bin/z3 /usr/local/bin/z3
+    wget -q https://github.com/Z3Prover/z3/releases/download/z3-4.8.1/z3-4.8.1.016872a5e0f6-x64-ubuntu-16.04.zip && \
+    unzip z3-4.8.1.016872a5e0f6-x64-ubuntu-16.04.zip && \
+    mv z3-4.8.1.016872a5e0f6-x64-ubuntu-16.04/bin/z3 /usr/local/bin/z3
 
 # Install Yices
 
