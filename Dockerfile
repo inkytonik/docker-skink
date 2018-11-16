@@ -33,18 +33,23 @@ RUN cd /usr/src && \
     tar xvJf clang+llvm-7.0.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz && \
     ln -s /usr/src/clang+llvm-7.0.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang /usr/local/bin/clang
 
-# Install z3
+# Install z3, latest and 4.5.0
 
 RUN cd /usr/src && \
     wget -q https://github.com/Z3Prover/z3/releases/download/z3-4.8.1/z3-4.8.1.016872a5e0f6-x64-ubuntu-16.04.zip && \
     unzip z3-4.8.1.016872a5e0f6-x64-ubuntu-16.04.zip && \
     mv z3-4.8.1.016872a5e0f6-x64-ubuntu-16.04/bin/z3 /usr/local/bin/z3
 
+RUN cd /usr/src && \
+    wget -q https://github.com/Z3Prover/z3/releases/download/z3-4.5.0/z3-4.5.0-x64-ubuntu-14.04.zip && \
+    unzip z3-4.5.0-x64-ubuntu-14.04.zip && \
+    mv z3-4.5.0-x64-ubuntu-14.04/bin/z3 /usr/local/bin/z3-4.5.0
+
 # Install Yices
 
-RUN add-apt-repository -y ppa:sri-csl/formal-methods && \
-    apt-get update && apt-get install -y \
-        yices2
+# RUN add-apt-repository -y ppa:sri-csl/formal-methods && \
+#     apt-get update && apt-get install -y \
+#         yices2
 
 # Install Mathsat
 
@@ -59,7 +64,7 @@ RUN pip3 install benchexec && \
     cd /usr/src && \
     git clone --depth 1 git://github.com/sosy-lab/benchexec.git
 
-# For cutting-edge version:
+# For cutting-edge version: (leave commented out)
 #RUN apt-get install -y python3-lxml && \
 #    pip3 install git+https://github.com/sosy-lab/benchexec.git && \
 #    cd /usr/src && \
@@ -78,10 +83,8 @@ RUN cd /usr/src && \
 #   ln -s /usr/src/sv-benchmarks /sv-benchmarks
 
 RUN cd /usr/src && \
-    wget -q https://github.com/sosy-lab/sv-benchmarks/archive/svcomp18.tar.gz && \
-    tar xvzf svcomp18.tar.gz && \
     git clone --depth 1 https://github.com/sosy-lab/sv-benchmarks.git && \
-    ln -s /usr/src/sv-benchmarks-svcomp18 /sv-benchmarks
+    ln -s /usr/src/sv-benchmarks /sv-benchmarks
 
 # Install CPAchecker
 
@@ -108,7 +111,7 @@ RUN cd /usr/src && \
 # to there.
 
 RUN mkdir /skink && \
-    ln -s /skink/Test.set /usr/src/sv-benchmarks/c/Test.set && \
-    ln -s /skink/Test.set /usr/src/sv-benchmarks-svcomp18/c/Test.set
+    ln -s /skink/Test.set /usr/src/sv-benchmarks/c/Test.set
+    # ln -s /skink/Test.set /usr/src/sv-benchmarks-svcomp18/c/Test.set
 
 WORKDIR /skink
