@@ -36,9 +36,9 @@ RUN cd /usr/src && \
 # Install z3, latest and 4.5.0
 
 RUN cd /usr/src && \
-    wget -q https://github.com/Z3Prover/z3/releases/download/z3-4.8.1/z3-4.8.1.016872a5e0f6-x64-ubuntu-16.04.zip && \
-    unzip z3-4.8.1.016872a5e0f6-x64-ubuntu-16.04.zip && \
-    mv z3-4.8.1.016872a5e0f6-x64-ubuntu-16.04/bin/z3 /usr/local/bin/z3
+    wget -q https://github.com/Z3Prover/z3/releases/download/z3-4.8.4/z3-4.8.4.d6df51951f4c-x64-ubuntu-16.04.zip && \
+    unzip z3-4.8.4.d6df51951f4c-x64-ubuntu-16.04.zip && \
+    mv z3-4.8.4.d6df51951f4c-x64-ubuntu-16.04/bin/z3 /usr/local/bin/z3
 
 RUN cd /usr/src && \
     wget -q https://github.com/Z3Prover/z3/releases/download/z3-4.5.0/z3-4.5.0-x64-ubuntu-14.04.zip && \
@@ -60,31 +60,40 @@ RUN cd /usr/src && \
 
 # Install benchexec, including sources to get mergeBenchmarkSets.py
 # For released version:
+
 RUN pip3 install benchexec && \
     cd /usr/src && \
-    git clone --depth 1 git://github.com/sosy-lab/benchexec.git
+    git clone --branch 1.17 --depth 1 git://github.com/sosy-lab/benchexec.git
 
-# For cutting-edge version: (leave commented out)
-#RUN apt-get install -y python3-lxml && \
-#    pip3 install git+https://github.com/sosy-lab/benchexec.git && \
-#    cd /usr/src && \
-#    git clone --depth 1 git://github.com/sosy-lab/benchexec.git
+# For cutting-edge version, use this instead:
+# RUN pip3 install benchexec && \
+#     cd /usr/src && \
+#     git clone --depth 1 git://github.com/sosy-lab/benchexec.git
 
 # Install SV-COMP configuration
 # Link to / so /sv-comp paths in bench script work
 
 RUN cd /usr/src && \
-    git clone --depth 1 https://github.com/sosy-lab/sv-comp.git && \
-    ln -s /usr/src/sv-comp /sv-comp
+    wget -q 'https://github.com/sosy-lab/sv-comp/archive/svcomp19.tar.gz' -O svcomp19.tar.gz && \
+    tar zxvf svcomp19.tar.gz && \
+    ln -s /usr/src/sv-comp-svcomp19 /sv-comp
 
-# Install sv-benchmarks for SV-COMP18 and cutting-edge version
+# For cutting-edge version, use this instead:
+# RUN cd /usr/src && \
+#     git clone --depth 1 https://github.com/sosy-lab/sv-comp.git && \
+#     ln -s /usr/src/sv-comp /sv-comp
+
+# Install sv-benchmarks for SV-COMP and cutting-edge version
 # Link to / so /sv-benchmarks paths in SV-COMP work
-# SV-COMP18 ones are used by default but relink /sv-benchmarks to get others:
-#   ln -s /usr/src/sv-benchmarks /sv-benchmarks
 
 RUN cd /usr/src && \
-    git clone --depth 1 https://github.com/sosy-lab/sv-benchmarks.git && \
-    ln -s /usr/src/sv-benchmarks /sv-benchmarks
+      git clone --branch svcomp19 --depth 1 https://github.com/sosy-lab/sv-benchmarks.git && \
+      ln -s /usr/src/sv-benchmarks /sv-benchmarks
+
+# For cutting-edge version, use this instead:
+# RUN cd /usr/src && \
+#     git clone --depth 1 https://github.com/sosy-lab/sv-benchmarks.git && \
+#     ln -s /usr/src/sv-benchmarks /sv-benchmarks
 
 # Install CPAchecker
 
