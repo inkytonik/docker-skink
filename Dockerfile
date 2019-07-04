@@ -5,6 +5,7 @@ FROM ubuntu:bionic
 RUN apt-get update && apt-get install -y \
     apt-transport-https \
     git \
+    locales \
     mercurial \
     python-pip \
     python3-pip \
@@ -12,6 +13,10 @@ RUN apt-get update && apt-get install -y \
     subversion \
     wget \
     unzip
+
+# Locale setup, needed for perl
+
+RUN locale-gen en_US.UTF-8
 
 # Install java
 
@@ -113,6 +118,7 @@ RUN cd /usr/src && \
     unzip pycparser-master.zip && \
     cp -rf /usr/src/fshell-w2t/* /usr/local/bin && \
     chmod +x /usr/local/bin/process_witness.py /usr/local/bin/test-gen.sh /usr/local/bin/TestEnvGenerator.pl
+
 
 # Setup skink-specific stuff
 # When running locally for benchexec, Skink working dir will be mounted
