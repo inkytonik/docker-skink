@@ -5,6 +5,7 @@ FROM ubuntu:bionic
 RUN apt-get update && apt-get install -y \
     apt-transport-https \
     git \
+    graphviz \
     locales \
     mercurial \
     python-pip \
@@ -36,7 +37,8 @@ RUN echo 'deb https://dl.bintray.com/sbt/debian /' >> /etc/apt/sources.list && \
 RUN cd /usr/src && \
     wget -q http://releases.llvm.org/7.0.0/clang+llvm-7.0.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz && \
     tar xvJf clang+llvm-7.0.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz && \
-    ln -s /usr/src/clang+llvm-7.0.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang /usr/local/bin/clang
+    ln -s /usr/src/clang+llvm-7.0.0-x86_64-linux-gnu-ubuntu-16.04/bin/clang /usr/local/bin/clang && \
+    ln -s /usr/src/clang+llvm-7.0.0-x86_64-linux-gnu-ubuntu-16.04/bin/opt /usr/local/bin/opt
 
 # Install z3, latest and 4.5.0
 
