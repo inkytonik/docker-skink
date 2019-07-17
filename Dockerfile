@@ -66,16 +66,13 @@ RUN cd /usr/src && \
     mv mathsat-5.5.4-linux-x86_64/bin/mathsat /usr/local/bin/mathsat
 
 # Install benchexec, including sources to get mergeBenchmarkSets.py
-# For released version:
 
-RUN pip3 install benchexec && \
-    cd /usr/src && \
-    git clone --branch 1.17 --depth 1 git://github.com/sosy-lab/benchexec.git
-
-# For cutting-edge version, use this instead:
-# RUN pip3 install benchexec && \
-#     cd /usr/src && \
-#     git clone --depth 1 git://github.com/sosy-lab/benchexec.git
+RUN cd /usr/src && \
+    wget -q 'https://github.com/sosy-lab/benchexec/releases/download/1.19/benchexec_1.19-1_all.deb' -O benchexec_1.19-1_all.deb && \
+    apt install -y --install-recommends ./benchexec_1.19-1_all.deb && \
+    wget -q 'https://github.com/sosy-lab/benchexec/releases/download/1.19/BenchExec-1.19.tar.gz' -O BenchExec-1.19.tar.gz && \
+    tar zxvf BenchExec-1.19.tar.gz && \
+    ln -s BenchExec-1.19 benchexec
 
 # Install SV-COMP configuration
 # Link to / so /sv-comp paths in bench script work
