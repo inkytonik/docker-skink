@@ -118,14 +118,11 @@ RUN cd /usr/src && \
     cp -rf /usr/src/fshell-w2t/* /usr/local/bin && \
     chmod +x /usr/local/bin/process_witness.py /usr/local/bin/test-gen.sh /usr/local/bin/TestEnvGenerator.pl
 
-# Grab a current Skink working dir snapshot and build it
-# The aim is to preload any dependencies that we need
+# Build, test and assemble a skink-like project so we preload dependencies
 
-COPY skink.tar.gz /tmp
-RUN cd /tmp && \
-    tar xvzf skink.tar.gz && \
-    cd skink && \
-    sbt clean assembly
+COPY skinklike /usr/src/skinklike
+RUN cd /usr/src/skinklike && \
+    sbt clean run assembly
 
 # Setup skink-specific stuff
 # When running locally for benchexec, Skink working dir will be mounted
