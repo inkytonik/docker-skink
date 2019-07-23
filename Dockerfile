@@ -54,9 +54,8 @@ RUN cd /usr/src && \
 
 # Install Yices
 
-# RUN add-apt-repository -y ppa:sri-csl/formal-methods && \
-#     apt-get update && apt-get install -y \
-#         yices2
+RUN add-apt-repository -y ppa:sri-csl/formal-methods && \
+    apt-get install -y yices2
 
 # Install Mathsat
 
@@ -64,6 +63,30 @@ RUN cd /usr/src && \
     wget -q 'http://mathsat.fbk.eu/download.php?file=mathsat-5.5.4-linux-x86_64.tar.gz' -O mathsat-5.5.4-linux-x86_64.tar.gz && \
     tar zxvf mathsat-5.5.4-linux-x86_64.tar.gz && \
     mv mathsat-5.5.4-linux-x86_64/bin/mathsat /usr/local/bin/mathsat
+
+# Install CVC4
+
+RUN cd /usr/local/bin && \
+    wget https://github.com/CVC4/CVC4/releases/download/1.7/cvc4-1.7-x86_64-linux-opt -O cvc4-1.7-x86_64-linux-opt && \
+    chmod +x cvc4-1.7-x86_64-linux-opt && \
+    ln -s cvc4-1.7-x86_64-linux-opt cvc4
+
+# Install Boolector
+# Includes two "sed" patches to make 3.0.0 build with the latest BTOR2 tools.
+
+RUN cd /usr/src && \
+    apt-get install -y cmake && \
+    wget https://github.com/Boolector/boolector/archive/3.0.0.tar.gz -O boolector-3.0.0.tar.gz && \
+    tar xzvf boolector-3.0.0.tar.gz && \
+    cd boolector-3.0.0 && \
+    ./contrib/setup-lingeling.sh && \
+    ./contrib/setup-btor2tools.sh && \
+    ./configure.sh && \
+    sed -i -e 's/BTOR2_TAG_ne:/BTOR2_TAG_neq:/' ./src/parser/btorbtor2.c && \
+    sed -i -e 's/BTOR2_TAG_ne:/BTOR2_TAG_neq:/' ./src/btormcmain.c && \
+    cd build && \
+    make && \
+    ln -s /usr/src/boolector-3.0.0/build/bin/boolector /usr/local/bin/boolector
 
 # Install benchexec, including sources to get mergeBenchmarkSets.py
 
