@@ -72,21 +72,18 @@ RUN cd /usr/local/bin && \
     ln -s cvc4-1.7-x86_64-linux-opt cvc4
 
 # Install Boolector
-# Includes two "sed" patches to make 3.0.0 build with the latest BTOR2 tools.
+# Uses HEAD of master since we need the "echo" flush fix that was added after 3.0.0 release
 
 RUN cd /usr/src && \
     apt-get install -y cmake && \
-    wget https://github.com/Boolector/boolector/archive/3.0.0.tar.gz -O boolector-3.0.0.tar.gz && \
-    tar xzvf boolector-3.0.0.tar.gz && \
-    cd boolector-3.0.0 && \
+    git clone https://github.com/boolector/boolector && \
+    cd boolector && \
     ./contrib/setup-lingeling.sh && \
     ./contrib/setup-btor2tools.sh && \
     ./configure.sh && \
-    sed -i -e 's/BTOR2_TAG_ne:/BTOR2_TAG_neq:/' ./src/parser/btorbtor2.c && \
-    sed -i -e 's/BTOR2_TAG_ne:/BTOR2_TAG_neq:/' ./src/btormcmain.c && \
     cd build && \
     make && \
-    ln -s /usr/src/boolector-3.0.0/build/bin/boolector /usr/local/bin/boolector
+    ln -s /usr/src/boolector/build/bin/boolector /usr/local/bin/boolector
 
 # Install benchexec, including sources to get mergeBenchmarkSets.py
 
